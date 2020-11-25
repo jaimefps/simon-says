@@ -28,6 +28,10 @@ p {
   color: grey;
 }
 
+.tall {
+  height: 100%;
+}
+
 .flex {
   display: flex;
   justify-content: center;
@@ -36,10 +40,6 @@ p {
 
 .column {
   flex-direction: column;
-}
-
-.container {
-  height: 90%;
 }
 
 .header {

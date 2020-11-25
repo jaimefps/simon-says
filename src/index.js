@@ -1,6 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Component from "./component";
+import WithRedux from "./with-redux/game";
+import WithZustand from "./with-zustand/game";
 import "./index.css";
 
-ReactDOM.render(<Component />, document.getElementById("root"));
+function Samples() {
+  return (
+    <div className="flex tall">
+      <WithRedux />
+      <WithZustand />
+    </div>
+  );
+}
+
+ReactDOM.render(<Samples />, document.getElementById("root"));

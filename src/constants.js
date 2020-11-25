@@ -2,6 +2,7 @@ import redSound from "./sounds/red.wav";
 import blueSound from "./sounds/blue.wav";
 import greenSound from "./sounds/green.wav";
 import yellowSound from "./sounds/yellow.wav";
+import womp from "./sounds/womp.wav";
 
 export const COLORS = {
   RED: "red",
@@ -17,26 +18,20 @@ export const PASSIVE_COLORS = {
   [COLORS.GREEN]: "lightgreen",
 };
 
-export const SOUND_CALLS = {
+export const SOUNDS = {
   [COLORS.RED]: () => new Audio(redSound).play(),
   [COLORS.BLUE]: () => new Audio(blueSound).play(),
   [COLORS.YELLOW]: () => new Audio(yellowSound).play(),
   [COLORS.GREEN]: () => new Audio(greenSound).play(),
+  womp: () => setTimeout(() => new Audio(womp).play(), 275),
 };
 
-export const ACTION_TYPES = {
-  ACTIVATE: "ACTIVATE",
-  DEACTIVATE: "DEACTIVATE",
-  PLAYER_FAIL: "PLAYER_FAIL",
-  PLAYER_SUCCESS: "PLAYER_SUCCESS",
-  PLAYER_BLOCK: "PLAYER_BLOCK",
-  PLAYER_UNBLOCK: "PLAYER_UNBLOCK",
-  PLAYER_PRESS_INCREMENT: "PLAYER_PRESS_INCREMENT",
-  PLAYER_PRESS_RESET: "PLAYER_PRESS_RESET",
-  MACHINE_SEQUENCE_EXPAND: "MACHINE_SEQUENCE_EXPAND",
-  MACHINE_SEQUENCE_RESET: "MACHINE_SEQUENCE_RESET",
-  TURN_COUNT_INCREMENT: "TURN_COUNT_INCREMENT",
-  TURN_COUNT_RESET: "TURN_COUNT_RESET",
-  ACTIVE_BULB_SET: "ACTIVE_BULB_SET",
-  RESET: "RESET",
+export const initialState = {
+  isActiveGame: false,
+  playerFailed: false,
+  playerBlocked: true,
+  playerPressCount: 0,
+  machineSequence: [],
+  activeBulb: null,
+  turnCount: 0,
 };

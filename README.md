@@ -1,6 +1,10 @@
 # Simon Says - Web
 
-Simon Says with React/Redux hooks
+Simon Says with React and different state management libraries.
+
+- redux
+- zustand
+- jotai
 
 ![alt text](./assets/sample.png)
 

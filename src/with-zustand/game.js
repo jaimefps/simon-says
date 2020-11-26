@@ -6,15 +6,20 @@ import { useStore } from "./state";
 function Bulb({ color }) {
   const playerBlocked = useStore((state) => state.playerBlocked);
   const activeBulb = useStore((state) => state.activeBulb);
-  const handleBulbClick = useStore((state) => state.makeHandleBulbClick(color));
-  const props = { color, playerBlocked, activeBulb, handleBulbClick };
+  const handleBulbClick = useStore((state) => state.handleBulbClick);
+  const props = {
+    color,
+    playerBlocked,
+    activeBulb,
+    handleBulbClick: () => handleBulbClick(color),
+  };
   return <BulbPure {...props} />;
 }
 
 function GameHeader() {
   const isActiveGame = useStore((state) => state.isActiveGame);
   const playerFailed = useStore((state) => state.playerFailed);
-  const handleStart = useStore((state) => state.makeHandleStart());
+  const handleStart = useStore((state) => state.handleStart);
   const turnCount = useStore((state) => state.turnCount);
   const gameOver = useStore((state) => state.gameOver);
   const props = {

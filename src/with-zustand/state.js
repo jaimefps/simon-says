@@ -41,18 +41,16 @@ export const useStore = create((set, get) => ({
     set({ playerBlocked: false });
   },
 
-  makeHandleStart: () => {
+  handleStart: () => {
     const { nextTurn } = get();
-    return function () {
-      set({
-        ...JSON.parse(JSON.stringify(initialState)),
-        isActiveGame: true,
-      });
-      nextTurn();
-    };
+    set({
+      ...JSON.parse(JSON.stringify(initialState)),
+      isActiveGame: true,
+    });
+    nextTurn();
   },
 
-  makeHandleBulbClick: (color) => {
+  handleBulbClick: (color) => {
     const {
       gameOver,
       nextTurn,
@@ -63,19 +61,17 @@ export const useStore = create((set, get) => ({
     } = get();
     const isValidBtn = machineSequence[playerPressCount] === color;
     const isAtLastPress = playerPressCount === machineSequence.length - 1;
-    return function () {
-      if (!playerBlocked && isActiveGame) {
-        SOUNDS[color]();
-        if (isValidBtn) {
-          if (isAtLastPress) {
-            nextTurn();
-          } else {
-            set({ playerPressCount: playerPressCount + 1 });
-          }
+    if (!playerBlocked && isActiveGame) {
+      SOUNDS[color]();
+      if (isValidBtn) {
+        if (isAtLastPress) {
+          nextTurn();
         } else {
-          gameOver();
+          set({ playerPressCount: playerPressCount + 1 });
         }
+      } else {
+        gameOver();
       }
-    };
+    }
   },
 }));

@@ -43,7 +43,6 @@ function GameHeader() {
 
 export default function Game() {
   const props = {
-    manager: "redux",
     Header: <GameHeader />,
     Red: <Bulb color={COLORS.RED} />,
     Blue: <Bulb color={COLORS.BLUE} />,

@@ -22,7 +22,9 @@ export const ACTION_TYPES = {
   RESET: "RESET",
 };
 
-function reducer(baseState = initialState, { type, payload }) {
+const cloneInitialState = JSON.parse(JSON.stringify(initialState));
+
+function reducer(baseState = cloneInitialState, { type, payload }) {
   return produce(baseState, (draft) => {
     switch (type) {
       case ACTION_TYPES.ACTIVATE:
@@ -87,6 +89,7 @@ export function useGameOver() {
     SOUNDS.womp();
     dispatch({ type: ACTION_TYPES.DEACTIVATE });
     dispatch({ type: ACTION_TYPES.PLAYER_FAIL });
+    dispatch({ type: ACTION_TYPES.PLAYER_BLOCK });
     dispatch({ type: ACTION_TYPES.MACHINE_SEQUENCE_RESET });
   };
 }
@@ -102,7 +105,7 @@ export function useNextTurn() {
       const { machineSequence } = getState().simon;
       const { timeBetween, lightOff } = calculateDelays(machineSequence.length);
       const sequenceClone = [...machineSequence];
-      while (sequenceClone.length) {
+      while (sequenceClone.length && !getState().simon.playerFailed) {
         const thisColor = sequenceClone.shift();
         await wait(timeBetween);
         SOUNDS[thisColor]();

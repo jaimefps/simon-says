@@ -1,29 +1,32 @@
 import React from "react";
+import { useAtom, Provider } from "jotai";
 import { COLORS } from "../constants";
 import { BulbPure, GameHeaderPure, GamePure } from "../components";
-import { useStore } from "./state";
+import {
+  state,
+  useGameOver,
+  useHandleStart,
+  useHandleBulbClick,
+} from "./state";
 
 function Bulb({ color }) {
-  const playerBlocked = useStore((state) => state.playerBlocked);
-  const activeBulb = useStore((state) => state.activeBulb);
-  const handleBulbClick = useStore((state) => state.handleBulbClick);
+  const [{ playerBlocked, activeBulb }] = useAtom(state);
+  const handleBulbClick = useHandleBulbClick(color);
   const props = {
     color,
     playerBlocked,
     activeBulb,
-    handleBulbClick: () => handleBulbClick(color),
+    handleBulbClick,
   };
   return <BulbPure {...props} />;
 }
 
 function GameHeader() {
-  const isActiveGame = useStore((state) => state.isActiveGame);
-  const playerFailed = useStore((state) => state.playerFailed);
-  const handleStart = useStore((state) => state.handleStart);
-  const turnCount = useStore((state) => state.turnCount);
-  const gameOver = useStore((state) => state.gameOver);
+  const [{ isActiveGame, playerFailed, turnCount }] = useAtom(state);
+  const handleStart = useHandleStart();
+  const gameOver = useGameOver();
   const props = {
-    manager: "zustand",
+    manager: "jotai",
     turnCount,
     isActiveGame,
     playerFailed,
@@ -41,5 +44,9 @@ export default function Game() {
     Green: <Bulb color={COLORS.GREEN} />,
     Yellow: <Bulb color={COLORS.YELLOW} />,
   };
-  return <GamePure {...props} />;
+  return (
+    <Provider>
+      <GamePure {...props} />
+    </Provider>
+  );
 }

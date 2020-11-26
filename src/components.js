@@ -31,7 +31,7 @@ export function GameHeaderPure({
   const handleCtaClick = isActiveGame ? gameOver : handleStart;
   const btnLabel = isActiveGame ? "QUIT" : "NEW GAME";
   return (
-    <div className="header flex column">
+    <div className="flex column header">
       {manager}
       <button className="cta" onClick={handleCtaClick}>
         {btnLabel}
@@ -39,7 +39,7 @@ export function GameHeaderPure({
       {playerFailed && (
         <>
           <p>Game Over</p>
-          <p>{`Turn Count: ${turnCount - 1}`}</p>
+          <p>{`Completed ${Math.max(turnCount - 1, 0)} Rounds`}</p>
         </>
       )}
     </div>

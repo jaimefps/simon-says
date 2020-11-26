@@ -2,11 +2,13 @@ import create from "zustand";
 import { initialState, SOUNDS } from "../constants";
 import { getRandomColor, calculateDelays, wait } from "../utils";
 
+const cloneInitialState = JSON.parse(JSON.stringify(initialState));
+
 export const useStore = create((set, get) => ({
   /**************
    * state
    **************/
-  ...JSON.parse(JSON.stringify(initialState)),
+  ...cloneInitialState,
 
   /**************
    * functions
@@ -14,6 +16,7 @@ export const useStore = create((set, get) => ({
   gameOver: () => {
     SOUNDS.womp();
     set({
+      playerBlocked: true,
       isActiveGame: false,
       playerFailed: true,
       machineSequence: [],
@@ -30,7 +33,7 @@ export const useStore = create((set, get) => ({
       turnCount: turnCount + 1,
       machineSequence: [...nextSequence],
     });
-    while (nextSequence.length) {
+    while (nextSequence.length && !get().playerFailed) {
       const thisColor = nextSequence.shift();
       await wait(timeBetween);
       SOUNDS[thisColor]();

@@ -50,13 +50,15 @@ export function GamePure({ Red, Blue, Green, Yellow, Header }) {
   return (
     <div className="flex column tall">
       {Header}
-      <div>
-        {Yellow}
-        {Blue}
-      </div>
-      <div>
-        {Red}
-        {Green}
+      <div className="simon-container">
+        <div className="bulb-row">
+          {Yellow}
+          {Blue}
+        </div>
+        <div className="bulb-row">
+          {Red}
+          {Green}
+        </div>
       </div>
     </div>
   );

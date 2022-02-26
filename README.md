@@ -6,7 +6,7 @@ Simon Says with React and different state management libraries.
 - zustand
 - jotai
 
-![alt text](./assets/sample.png)
+![alt text](./assets/sample-2.png)
 
 ## Play It Locally
 

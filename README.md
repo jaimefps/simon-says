@@ -8,6 +8,10 @@ Simon Says with React and different state management libraries.
 
 ```bash
 $ git clone ...
+
+$ nvm install 14
+$ nvm use 14
+
 $ yarn install
 $ yarn start
 ```

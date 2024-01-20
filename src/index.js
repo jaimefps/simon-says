@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import WithRedux from "./with-redux/game";
-import WithZustand from "./with-zustand/game";
-import WithJotai from "./with-jotai/game";
-import "./index.css";
+import React from "react"
+import ReactDOM from "react-dom"
+import WithRedux from "./with-redux/game"
+import WithZustand from "./with-zustand/game"
+import WithJotai from "./with-jotai/game"
+import "./index.css"
 
 function Samples() {
   return (
@@ -12,7 +12,7 @@ function Samples() {
       <WithZustand />
       <WithJotai />
     </div>
-  );
+  )
 }
 
-ReactDOM.render(<Samples />, document.getElementById("root"));
+ReactDOM.render(<Samples />, document.getElementById("root"))

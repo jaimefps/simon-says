@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { PASSIVE_COLORS } from "./constants";
+import React, { useState } from "react"
+import { PASSIVE_COLORS } from "./constants"
 
 export function BulbPure({
   color,
@@ -7,8 +7,8 @@ export function BulbPure({
   playerBlocked,
   handleBulbClick,
 }) {
-  const [isPressed, setIsPressed] = useState(false);
-  const bgc = activeBulb === color || isPressed ? color : PASSIVE_COLORS[color];
+  const [isPressed, setIsPressed] = useState(false)
+  const bgc = activeBulb === color || isPressed ? color : PASSIVE_COLORS[color]
   return (
     <button
       className="bulb"
@@ -17,7 +17,7 @@ export function BulbPure({
       onMouseUp={playerBlocked ? undefined : () => setIsPressed(false)}
       onMouseDown={playerBlocked ? undefined : () => setIsPressed(true)}
     />
-  );
+  )
 }
 
 export function GameHeaderPure({
@@ -28,8 +28,8 @@ export function GameHeaderPure({
   handleStart,
   gameOver,
 }) {
-  const handleCtaClick = isActiveGame ? gameOver : handleStart;
-  const btnLabel = isActiveGame ? "QUIT" : "NEW GAME";
+  const handleCtaClick = isActiveGame ? gameOver : handleStart
+  const btnLabel = isActiveGame ? "QUIT" : "NEW GAME"
   return (
     <div className="flex column header">
       {manager}
@@ -43,7 +43,7 @@ export function GameHeaderPure({
         </>
       )}
     </div>
-  );
+  )
 }
 
 export function GamePure({ Red, Blue, Green, Yellow, Header }) {
@@ -61,5 +61,5 @@ export function GamePure({ Red, Blue, Green, Yellow, Header }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

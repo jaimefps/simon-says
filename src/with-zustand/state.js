@@ -1,8 +1,8 @@
-import create from "zustand";
-import { initialState, SOUNDS } from "../constants";
-import { getRandomColor, calculateDelays, wait } from "../utils";
+import create from "zustand"
+import { getInitialState, SOUNDS } from "../constants"
+import { getRandomColor, calculateDelays, wait } from "../utils"
 
-const cloneInitialState = JSON.parse(JSON.stringify(initialState));
+const cloneInitialState = getInitialState()
 
 export const useStore = create((set, get) => ({
   /**************
@@ -14,43 +14,43 @@ export const useStore = create((set, get) => ({
    * functions
    **************/
   gameOver: () => {
-    SOUNDS.womp();
+    SOUNDS.womp()
     set({
       playerBlocked: true,
       isActiveGame: false,
       playerFailed: true,
       machineSequence: [],
-    });
+    })
   },
 
   nextTurn: async () => {
-    const { turnCount, machineSequence } = get();
-    const nextSequence = [...machineSequence, getRandomColor()];
-    const { timeBetween, lightOff } = calculateDelays(nextSequence.length);
+    const { turnCount, machineSequence } = get()
+    const nextSequence = [...machineSequence, getRandomColor()]
+    const { timeBetween, lightOff } = calculateDelays(nextSequence.length)
     set({
       playerBlocked: true,
       playerPressCount: 0,
       turnCount: turnCount + 1,
       machineSequence: [...nextSequence],
-    });
+    })
     while (nextSequence.length && !get().playerFailed) {
-      const thisColor = nextSequence.shift();
-      await wait(timeBetween);
-      SOUNDS[thisColor]();
-      set({ activeBulb: thisColor });
-      await wait(lightOff);
-      set({ activeBulb: null });
+      const thisColor = nextSequence.shift()
+      await wait(timeBetween)
+      SOUNDS[thisColor]()
+      set({ activeBulb: thisColor })
+      await wait(lightOff)
+      set({ activeBulb: null })
     }
-    set({ playerBlocked: false });
+    set({ playerBlocked: false })
   },
 
   handleStart: () => {
-    const { nextTurn } = get();
+    const { nextTurn } = get()
     set({
-      ...JSON.parse(JSON.stringify(initialState)),
+      ...getInitialState(),
       isActiveGame: true,
-    });
-    nextTurn();
+    })
+    nextTurn()
   },
 
   handleBulbClick: (color) => {
@@ -61,20 +61,20 @@ export const useStore = create((set, get) => ({
       playerBlocked,
       playerPressCount,
       machineSequence,
-    } = get();
-    const isValidBtn = machineSequence[playerPressCount] === color;
-    const isAtLastPress = playerPressCount === machineSequence.length - 1;
+    } = get()
+    const isValidBtn = machineSequence[playerPressCount] === color
+    const isAtLastPress = playerPressCount === machineSequence.length - 1
     if (!playerBlocked && isActiveGame) {
-      SOUNDS[color]();
+      SOUNDS[color]()
       if (isValidBtn) {
         if (isAtLastPress) {
-          nextTurn();
+          nextTurn()
         } else {
-          set({ playerPressCount: playerPressCount + 1 });
+          set({ playerPressCount: playerPressCount + 1 })
         }
       } else {
-        gameOver();
+        gameOver()
       }
     }
   },
-}));
+}))
